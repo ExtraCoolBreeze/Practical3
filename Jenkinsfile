@@ -48,7 +48,7 @@ pipeline {
                 sshagent(['my-ssh-key']) {
                     sh '''
                         ssh ubuntu@54.163.210.196 "kubectl set image deployment/cw2-server cw2-server=xtracoolbreeze/cw2-server:1.2"
-			ssh ubuntu@54.163.210.196 "kubectl rollout status deployment/cw2-server"
+			ssh ubuntu@54.163.210.196 "kubectl rollout status deployment/cw2-server:1.2"
                     '''
                 }
             }
