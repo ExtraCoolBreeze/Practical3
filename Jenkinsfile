@@ -47,7 +47,7 @@ pipeline {
             steps {
                 sshagent(['my-ssh-key']) {
                     sh '''
-                        ssh ubuntu@3.90.62.93 "ansible-playbook ~/deploy_cw2server.yml"
+                        ssh ubuntu@54.163.210.196 "ansible-playbook ~/deploy_cw2server.yml"
                     '''
                 }
             }
