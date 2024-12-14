@@ -20,8 +20,10 @@ pipeline {
                     docker rm test-container || true
 
                     docker image inspect xtracoolbreeze/cw2-server:1.0
-                    docker run --name test-container -p 8081:8080 xtracoolbreeze/cw2-server:1.0
-                    docker ps
+                    docker run -d --name test-container -p 8081:8080 xtracoolbreeze/cw2-server:1.0
+                    sleep 5
+		    docker logs test-container
+		    docker ps
 
                     docker stop test-container
                     docker rm test-container
