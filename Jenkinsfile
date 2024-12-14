@@ -1,4 +1,5 @@
-agent any
+pipeline {
+    agent any
     environment {
         DOCKERHUB_CREDS = credentials('docker')
     }
@@ -44,10 +45,10 @@ agent any
             steps {
                 sshagent(['jenkins-ssh-key']) {
                     sh '''
-                    ssh ubuntu@3.90.62.93 "ansible-playbook ~/deploy_cw2server.yml"
+                        ssh ubuntu@3.90.62.93 "ansible-playbook ~/deploy_cw2server.yml"
                     '''
                 }
             }
         }
     }
-
+}
