@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDS = credentials('docker')
+        DOCKERHUB_CREDS = credentials('DockerKey')
     }
     stages {
         stage('Docker Image Build') {
@@ -43,7 +43,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sshagent(['jenkins-ssh-key']) {
+                sshagent(['707fa183-1669-4dd3-8d7d-1e5c7d9032f1']) {
                     sh '''
                         ssh ubuntu@3.90.62.93 "ansible-playbook ~/deploy_cw2server.yml"
                     '''
