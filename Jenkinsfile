@@ -7,7 +7,7 @@ pipeline {
         stage('Docker Image Build') {
             steps {
                 echo 'Building Docker Image...'
-                sh 'docker build --tag xtracoolbreeze/cw2-server:1.0 .'
+                sh 'docker build --tag xtracoolbreeze/cw2-server:1.1 .'
                 echo 'Docker Image Built Successfully!'
             }
         }
@@ -19,8 +19,8 @@ pipeline {
                     docker stop test-container || true
                     docker rm test-container || true
 
-                    docker image inspect xtracoolbreeze/cw2-server:1.0
-                    docker run -d --name test-container -p 8081:8080 xtracoolbreeze/cw2-server:1.0
+                    docker image inspect xtracoolbreeze/cw2-server:1.1
+                    docker run -d --name test-container -p 8081:8080 xtracoolbreeze/cw2-server:1.1
                     sleep 5
 		    docker logs test-container
 		    docker ps
@@ -39,7 +39,7 @@ pipeline {
 
         stage('DockerHub Image Push') {
             steps {
-                sh 'docker push xtracoolbreeze/cw2-server:1.0'
+                sh 'docker push xtracoolbreeze/cw2-server:1.1'
             }
         }
 
@@ -47,7 +47,8 @@ pipeline {
             steps {
                 sshagent(['my-ssh-key']) {
                     sh '''
-                        ssh ubuntu@54.163.210.196 "ansible-playbook ~/deploy_cw2server.yml"
+                        ssh ubuntu@54.163.210.196 "kubectl set image deployment/cw2-server cw2-server=xtracoolbreeze/cw2-server:1.1"
+			ssh ubuntu@54.163.210.196 "kubectl rollout status deployment/cw2-server"
                     '''
                 }
             }
