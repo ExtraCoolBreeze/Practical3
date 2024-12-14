@@ -40,14 +40,14 @@ agent any
             }
         }
 
-///        stage('Deploy') {
-//            steps {
-//                sshagent(['jenkins-ssh-key']) {
-//                    sh '''
-//                    ssh ubuntu@3.90.62.93 "ansible-playbook ~/deploy_cw2server.yml"
-//                    '''
-//                }
-//            }
-//        }
+        stage('Deploy') {
+            steps {
+                sshagent(['jenkins-ssh-key']) {
+                    sh '''
+                    ssh ubuntu@3.90.62.93 "ansible-playbook ~/deploy_cw2server.yml"
+                    '''
+                }
+            }
+        }
     }
 
